@@ -1,16 +1,15 @@
 # ===============================================
-# Fill in the following fields
+# Title: Game Of Thrones Text Analysis
+# Description: We can see the sentiment analysis for certain characters in the 
+# show across episodes or seasons. We can also input a word and analysis 2 gives
+# a word trend analysis across episodes or seasons. 
+# Author: Andrew Wapperom
+# Date: 1/4/2024
 # ===============================================
-# Title:
-# Description:
-# Details: 
-# Author: 
-# Date:
 
 
 # ===============================================
 # R packages
-# (you can use other packages if you want to)
 # ===============================================
 library(shiny)
 library(tidyverse) # for data manipulation and graphics
@@ -21,7 +20,6 @@ library(DT)        # to work with HTML table widgets
 
 # =======================================================
 # Sentiment Lexicons
-# Comment these commands out if you are not doing sentiment analysis
 # =======================================================
 bing = read_csv("bing.csv", col_types = "cc")
 afinn = read_csv("afinn.csv", col_types = "cc")
@@ -45,11 +43,6 @@ loughran = read_csv("loughran.csv", col_types = "cc")
      Sentence = col_character()
    ))
 
-# for demo purposes in this "template", we use data starwars
-# (but you will have to replace this with Game-of-Thrones data)
-
-
-
 # ===============================================
 # Define "ui" for application
 # ===============================================
@@ -61,10 +54,8 @@ ui <- fluidPage(
   
   # -------------------------------------------------------
   # Input widgets 
-  # Customize the following dummy widgets with your own inputs
   # -------------------------------------------------------
   fluidRow(
-    # replace with your widgets
     column(3,
            p(em("Season Number")),
            sliderInput(inputId = "seasonNumber", 
@@ -74,7 +65,6 @@ ui <- fluidPage(
                         value = 1)
     ), # closes column 1
     
-    # replace with your widgets
     column(3,
            p(em("Character Names")),
            selectInput(inputId = "charName", 
@@ -83,7 +73,6 @@ ui <- fluidPage(
                         selected = "tyrion")
     ), # closes column 2
     
-    # replace with your widgets
     column(3,
            p(em("Word Frequency")),
            textInput(inputId = "wordFreq", 
@@ -91,7 +80,6 @@ ui <- fluidPage(
                         value = "love")
     ), # closes column 3
     
-    # replace with your widgets
     column(3,
            p(em("Group By Episode")),
            checkboxInput(inputId = "groupByEpisode", 
@@ -105,7 +93,6 @@ ui <- fluidPage(
   
   # -------------------------------------------------------
   # Tabset Panel of outputs
-  # Feel free to customize the following output elements
   # -------------------------------------------------------
   tabsetPanel(type = "tabs",
               # Panel for Analysis 1
@@ -134,8 +121,6 @@ server <- function(input, output) {
   # ------------------------------------------------------------
   # Reactive objects
   # ------------------------------------------------------------
-  # the following code is for demo purposes only;
-  # replace the code below with your code!!!
   sentiment_analysis <- reactive({
     if (input$groupByEpisode) {
       seasonNumber = paste("Season", as.character(input$seasonNumber))
@@ -193,8 +178,6 @@ server <- function(input, output) {
   
   # code for plot1
   output$plot1 <- renderPlot({
-    # the following code is for demo purposes only;
-    # replace the code below with your code!!!
     
     if (input$groupByEpisode) {
       plottitle = paste("Episode vs Sentiment Score for", input$charName)
@@ -217,8 +200,6 @@ server <- function(input, output) {
   
   # code for table1
   output$table1 <- renderDataTable({
-    # the following code is for demo purposes only;
-    # replace the code below with your code!!!
     sentiment_analysis() |>
       datatable()
   })
@@ -230,8 +211,6 @@ server <- function(input, output) {
   
   # code for plot2
   output$plot2 <- renderPlot({
-    # the following code is for demo purposes only;
-    # replace the code below with your code!!!
     if (input$groupByEpisode) {
       plottitle = paste("Episode vs Frequency for", input$wordFreq)
       word_trend_analysis() |>
@@ -253,8 +232,6 @@ server <- function(input, output) {
   
   # code for table2
   output$table2 <- renderDataTable({
-    # the following code is for demo purposes only;
-    # replace the code below with your code!!!
     word_trend_analysis() |>
       datatable()
   })
