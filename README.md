@@ -1,4 +1,4 @@
-Game of Thrones Text Analysis
+# Game of Thrones Text Analysis
 
 We can see the sentiment analysis for certain characters in the 
 show across episodes or seasons in analysis 1. We can also input a word and analysis 2 gives
